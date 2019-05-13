@@ -67,12 +67,13 @@ public class MysqlJobFeedbackQueue extends JdbcAbstractAccess implements JobFeed
 
     @Override
     public long getCount(String jobClientNodeGroup) {
-        return ((Long) new SelectSql(getSqlTemplate())
+        Long value = new SelectSql(getSqlTemplate())
                 .select()
                 .columns("count(1)")
                 .from()
                 .table(getTableName(jobClientNodeGroup))
-                .single()).intValue();
+                .single();
+        return null != value? value:0L;
     }
 
     @Override
